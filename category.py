@@ -2,7 +2,7 @@
 
 class Category(object):
 
-    def __init__(self, name, descriptions, fn=lambda val, qty: 0):
+    def __init__(self, name, descriptions=None, fn=lambda val, qty: 0):
         self.name = name
         self.descriptions = descriptions or []
         self.fn = fn
