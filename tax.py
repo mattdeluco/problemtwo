@@ -1,11 +1,15 @@
-import decimal
+from decimal import Decimal, ROUND_UP
 
 class Tax(object):
     def __init__(self, rate):
-        self.rate = decimal.Decimal(rate)
+        self.rate = Decimal(rate)
 
     def calculate(self, amount):
-        return decimal.Decimal(amount) * self.rate
+        twenty = Decimal('20')
+        tax_amount = Decimal(amount) * self.rate
+        tax_amount = (tax_amount * twenty).quantize(Decimal('1'),
+                                                    rounding=ROUND_UP)
+        return tax_amount / twenty
 
 
 class SalesTax(Tax):
