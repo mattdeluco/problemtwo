@@ -12,8 +12,8 @@ class LineItem(object):
         self.value = decimal.Decimal(m.group(3))
         self.categories = []
 
-    def total_itemized(self):
-        items = {'value': self.value * self.quantity}
+    def itemized_categories(self):
+        items = {}
         for c in self.categories:
             if c.name not in items:
                 items[c.name] = 0
@@ -21,8 +21,8 @@ class LineItem(object):
         return items
 
     def total(self):
-        items = self.total_itemized()
-        total = 0
+        items = self.itemized_categories()
+        total = self.value * self.quantity
         for i in items.itervalues():
             total += i
         return total
