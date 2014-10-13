@@ -15,7 +15,9 @@ class LineItem(object):
     def total_itemized(self):
         items = {'value': self.value * self.quantity}
         for c in self.categories:
-            items[c.name] = c.fn(self.value, self.quantity)
+            if c.name not in items:
+                items[c.name] = 0
+            items[c.name] += c.fn(self.value, self.quantity)
         return items
 
     def total(self):
