@@ -19,4 +19,4 @@ class ExceptionCategory(Category):
 
     def categorize(self, lineitem):
         if lineitem.description not in self.descriptions:
-            super(ExceptionCategory, self).categorize(lineitem)
+            lineitem.categorize(self)

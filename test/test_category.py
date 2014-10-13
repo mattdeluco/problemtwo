@@ -7,7 +7,7 @@ class MockItem(object):
     def __init__(self, description):
         self.description = description
         self.called = False
-        
+
     def categorize(self, category):
         self.called = True
 
@@ -28,11 +28,23 @@ class TestCategory(unittest.TestCase):
         cat.categorize(item)
         self.assertTrue(item.called)
 
+    def test_not_categorize(self):
+        cat = Category('Discount', ['foo', 'bar', 'baz'])
+        item = MockItem('quux')
+        cat.categorize(item)
+        self.assertFalse(item.called)
+
 
 class TestExceptionCategory(unittest.TestCase):
 
-    def test_exception(self):
+    def test_exceptional_item(self):
         cat = ExceptionCategory('Discount', ['foo', 'bar', 'baz'])
         item = MockItem('foo')
         cat.categorize(item)
         self.assertFalse(item.called)
+
+    def test_not_exceptional_item(self):
+        cat = ExceptionCategory('Discount', ['foo', 'bar', 'baz'])
+        item = MockItem('quux')
+        cat.categorize(item)
+        self.assertTrue(item.called)
