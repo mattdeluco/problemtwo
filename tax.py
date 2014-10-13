@@ -21,4 +21,4 @@ class Tax(object):
         tax_amount = Decimal(amount) * self.rate
         tax_amount = (tax_amount * twenty).quantize(Decimal('1'),
                                                     rounding=ROUND_UP)
-        return tax_amount / twenty
+        return (tax_amount / twenty).quantize(Decimal('1.00'))

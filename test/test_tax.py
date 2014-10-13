@@ -1,4 +1,4 @@
-from decimal import Decimal, ROUND_HALF_UP
+from decimal import Decimal
 import unittest
 
 import tax
@@ -11,8 +11,11 @@ class TestTax(unittest.TestCase):
         self.sales_tax = tax.Tax('0.10')
 
     def test_calculate(self):
-        import_duty = tax.Tax('0.05')
-        self.assertEqual(Decimal('0.05'), import_duty.calculate('1'))
+        self.assertEqual(Decimal('0.05'), self.import_duty.calculate('1'))
+
+    def test_quantum(self):
+        self.assertTrue(
+            self.sales_tax.calculate('14.99').same_quantum(Decimal('1.00')))
 
     def test_input1(self):
         book = Decimal('12.49')
@@ -46,7 +49,3 @@ class TestTax(unittest.TestCase):
 
         total = imported_parfum + parfum + pills + imported_chocolate + taxes
         self.assertEqual(Decimal('74.68'), total)
-
-
-class TestSalesTax(unittest.TestCase):
-    pass
