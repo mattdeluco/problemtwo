@@ -41,23 +41,23 @@ class Basket(object):
         Return an itemized receipt for this basket.
         :return: list
         """
-        receipt = ''
+        receipt = u''
         itemized_cats = {}
 
         for line in self.lineitems:
-            receipt += "{qty} {desc}: {total}\n".format(
+            receipt += u'{qty} {desc}: {total}\n'.format(
                 qty=line.quantity,
                 desc=line.description,
                 total=line.total())
 
-            for key, value in line.itemized_categories().iteritems():
+            for key, value in line.categories.iteritems():
                 if key not in itemized_cats:
                     itemized_cats[key] = 0
                 itemized_cats[key] += value
 
         for key, value in itemized_cats.iteritems():
-            receipt += "{desc}: {value}\n".format(desc=key, value=value)
+            receipt += u'{desc}: {value}\n'.format(desc=key, value=value)
 
-        receipt += "Total: {}".format(self.total())
+        receipt += u'Total: {}'.format(self.total())
 
         return receipt

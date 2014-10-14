@@ -13,7 +13,7 @@ from tax import Tax
 #   -> '1 imported box of chocolates: 11.85'
 def last_minute_hack(tax_obj):
     def foo(lineitem):
-        imported = ' imported'
+        imported = u' imported'
         i = lineitem.description.find(imported)
         if i > -1:
             lineitem.description = imported[1:] + ' ' + \
@@ -26,7 +26,7 @@ def last_minute_hack(tax_obj):
 
 def parse_lineitem(lineitem_str):
     # Group 1: Quantity, 2: Description, 3: Price
-    r = '^(\d+(?:\.\d+)?) (.*) at (\d+(?:\.\d{1,2})?)$'
+    r = r'^(\d+(?:\.\d+)?) (.*) at (\d+(?:\.\d{1,2})?)$'
     m = re.match(r, lineitem_str)
     if m:
         return LineItem(m.group(1), m.group(2), m.group(3))
@@ -49,13 +49,13 @@ def main(argv):
     # printed out on the same line
     categories = [
         ExceptionCategory(
-            'Sales Taxes',
+            u'Sales Taxes',
             sales_tax_exceptions,
             lambda i: sales_tax.calculate(i.value * i.quantity)
         ),
         Category(
-            'Sales Taxes',
-            ['imported'],
+            u'Sales Taxes',
+            [u'imported'],
             last_minute_hack(import_duty)
         ),
 #        Category(
@@ -81,6 +81,6 @@ def main(argv):
 
 if __name__ == '__main__':
     if len(sys.argv) < 2:
-        print 'problemtwo.py <line items input file> <sales tax exceptions file>'
+        print u'problemtwo.py <line items input file> <sales tax exceptions file>'
         sys.exit(1)
     main(sys.argv[1:])
