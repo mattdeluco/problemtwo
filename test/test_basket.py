@@ -4,6 +4,7 @@ import unittest
 from basket import Basket
 from category import Category, ExceptionCategory
 from lineitem import LineItem
+from problemtwo import parse_lineitem
 from tax import Tax
 
 
@@ -73,7 +74,7 @@ class TestBasket(unittest.TestCase):
 
         basket = Basket(self.categories)
         for line in lineitems:
-            basket.add_line(LineItem(line))
+            basket.add_line(parse_lineitem(line))
 
         self.assertEqual(Decimal('29.83'), basket.total())
         self.assertEqual(output1, basket.receipt())
@@ -85,7 +86,7 @@ class TestBasket(unittest.TestCase):
         ]
         basket = Basket(self.categories)
         for line in lineitems:
-            basket.add_line(LineItem(line))
+            basket.add_line(parse_lineitem(line))
 
         self.assertEqual(Decimal('65.15'), basket.total())
         self.assertEqual(output2, basket.receipt())
@@ -100,7 +101,7 @@ class TestBasket(unittest.TestCase):
 
         basket = Basket(self.categories)
         for line in lineitems:
-            basket.add_line(LineItem(line))
+            basket.add_line(parse_lineitem(line))
 
         self.assertEqual(Decimal('74.68'), basket.total())
         self.assertEqual(output3, basket.receipt())

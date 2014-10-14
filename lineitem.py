@@ -1,15 +1,12 @@
-import decimal
-import re
+from decimal import Decimal
 
 
 class LineItem(object):
 
-    # TODO: Abstract line parsing out of LineItem
-    def __init__(self, line, r='^(\d+(?:\.\d+)?) (.*) at (\d+(?:\.\d{1,2})?)$'):
-        m = re.match(r, line)
-        self.quantity = decimal.Decimal(m.group(1))
-        self.description = m.group(2)
-        self.value = decimal.Decimal(m.group(3))
+    def __init__(self, quantity, description, value):
+        self.quantity = Decimal(quantity)
+        self.description = description
+        self.value = Decimal(value)
         self.categories = []
 
     def itemized_categories(self):
