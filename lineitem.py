@@ -17,7 +17,7 @@ class LineItem(object):
         for c in self.categories:
             if c.name not in items:
                 items[c.name] = 0
-            items[c.name] += c.fn(self.value, self.quantity)
+            items[c.name] += c.fn(self)
         return items
 
     def total(self):

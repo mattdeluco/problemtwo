@@ -20,7 +20,7 @@ class TestCategory(unittest.TestCase):
 
         self.assertEqual(name, c.name)
         self.assertEqual(0, len(c.descriptions))
-        self.assertEqual(0, c.fn(1, 2))
+        self.assertEqual(0, c.fn(1))
 
     def test_categorize(self):
         cat = Category('Discount', ['foo', 'bar', 'baz'])

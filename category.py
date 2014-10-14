@@ -2,7 +2,7 @@
 
 class Category(object):
 
-    def __init__(self, name, descriptions=None, fn=lambda val, qty: 0):
+    def __init__(self, name, descriptions=None, fn=lambda lineitem: 0):
         """
         Create a category to which fn() is applied for matching descriptions.
 

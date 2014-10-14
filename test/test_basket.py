@@ -32,6 +32,17 @@ Total: 74.68
 class TestBasket(unittest.TestCase):
 
     def setUp(self):
+        def last_minute_hack(lineitem):
+            # '1 box of imported chocolates at 11.25'
+            # -> '1 imported box of chocolates: 11.85'
+            imported = ' imported'
+            i = lineitem.description.find(imported)
+            if i > -1:
+                lineitem.description = imported[1:] + ' ' + \
+                                       lineitem.description[:i] + \
+                                       lineitem.description[i+len(imported):]
+            return import_duty.calculate(lineitem.value * lineitem.quantity)
+
         categories = []
 
         sales_tax = Tax('0.10')
@@ -41,14 +52,15 @@ class TestBasket(unittest.TestCase):
         categories.append(ExceptionCategory(
             'Sales Taxes',
             sales_tax_categories,
-            lambda val, qty: sales_tax.calculate(val * qty)))
+            lambda i: sales_tax.calculate(i.value * i.quantity)))
 
         import_duty = Tax('0.05')
         import_duty_categories = ['imported']
         categories.append(Category(
             'Sales Taxes',
             import_duty_categories,
-            lambda val, qty: import_duty.calculate(val * qty)))
+            last_minute_hack))
+            #lambda i: import_duty.calculate(i.value * i.quantity)))
 
         self.categories = categories
 
