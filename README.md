@@ -12,6 +12,12 @@ problemtwo.py must have an input file as its first argument, and may have an opt
     $ python ./problemtwo.py
     problemtwo.py <line items input file> <sales tax exceptions file> 
 
+A small set of unit tests are also available:
+
+    $ ./test.sh
+    $ # or
+    $ python -m unittest discover -s test/
+
 ####Input File####
 To run an alternative problem set create a plain text file, each line formatted similar to ```1 imported bottle of Woodford Reserve at 30.00``` or ```<Quantity> <description> at <cost>```, where quantity may include fractional values using a decimal, and cost may have 0, 1, or 2 decimal places.  See [input3.txt](https://github.com/mattdeluco/problemtwo/blob/master/input3.txt) for an example.
 
@@ -24,7 +30,7 @@ I initially started out with the intention to create a set of tax classes to app
 
 Since a comprehensive set of product descriptions were not given for tax-free products (books, food, medical) I wanted to create something configurable.  Categories are named, have a list of descriptions (from a file for example), and a function to be applied to any item with a matching description.
 
-When printing a receipt calculated values for each category are aggregated from the line items and printed out as a single line ("Sales Taxes" for example.)  Different categories may share the same name so that they are aggregated on the same line - in problemtwo.py, both Basic Sales Tax and Import Duties are named "Sales Taxes" such that their summarized on the same line.
+When printing a receipt calculated values for each category are aggregated from the line items and printed out as a single line ("Sales Taxes" for example.)  Different categories may share the same name so that they are aggregated on the same line - in problemtwo.py, both Basic Sales Tax and Import Duties are named "Sales Taxes" such that they're summarized on the same line.
 
 Categories aside from taxes may also be created, such as "Student Discount".  See [problemtwo.py:61](https://github.com/mattdeluco/problemtwo/blob/master/problemtwo.py#L61) for example.
 
@@ -39,5 +45,4 @@ When working with money an alternative to using Python's Decimal is to store val
 
  1. "Sales Taxes" will not appear on the receipt if there are none to be calculated
  2. "Total" will print as "0" if there is no total to be calculated (rather than "0.00")
-
 
