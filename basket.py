@@ -58,6 +58,6 @@ class Basket(object):
         for key, value in itemized_cats.iteritems():
             receipt += "{desc}: {value}\n".format(desc=key, value=value)
 
-        receipt += "Total: {}\n".format(self.total())
+        receipt += "Total: {}".format(self.total())
 
         return receipt

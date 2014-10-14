@@ -25,4 +25,5 @@ class LineItem(object):
         return total
 
     def categorize(self, category):
+        category.fn(self)
         self.categories.append(category)
